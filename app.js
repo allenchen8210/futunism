@@ -63,7 +63,9 @@ async function load(){
     allStocks=joinData(prices,values); $('universe').textContent=allStocks.length;
     $('asOf').textContent=`資料日期 ${rocDate(values[0]?.Date)}`; render();
   }catch(error){
-    $('summary').textContent='目前無法連線證交所。請確認網路後再更新。';
+    console.error('Unable to load market data:',error);
+    $('asOf').textContent='資料載入失敗';
+    $('summary').textContent='目前無法載入市場資料。請重新整理頁面或稍後再試。';
     $('leaders').innerHTML='<article class="leader empty">官方資料暫時無法取得；本頁不會用過期示範資料冒充今日排行。</article>';
     $('ranking').innerHTML='<tr><td colspan="8" class="empty">等待證交所資料</td></tr>';
   }finally{$('refresh').disabled=false;$('refresh').textContent='更新今日排行'}
