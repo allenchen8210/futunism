@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Futunism 台股研究雷達：用證交所公開資料篩選值得進一步研究的上市股票。">
+  <meta property="og:title" content="Futunism 台股研究雷達">
+  <meta property="og:description" content="每天，更有紀律地找股票。">
+  <meta property="og:image" content="/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Futunism — 台股研究雷達</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main>
+  <nav><a class="brand" href="#">Futu<span>nism</span></a><div class="live"><i></i><span id="asOf">等待證交所資料</span></div></nav>
+  <header>
+    <div class="eyebrow">TWSE RESEARCH RADAR</div>
+    <h1>今天，哪些台股<br><em>值得深入研究？</em></h1>
+    <p class="lede">依流動性、估值、殖利率與價格動能，從台灣上市股票中建立每日研究清單。不是明牌，而是有紀律的起點。</p>
+    <div class="actions"><button id="refresh">更新今日排行</button><a href="#method">查看評分方法 ↓</a></div>
+  </header>
+
+  <section class="pulse">
+    <div><span>符合資料條件</span><strong id="universe">—</strong><small>檔上市股票</small></div>
+    <div><span>進入研究清單</span><strong id="qualified">—</strong><small>檔通過門檻</small></div>
+    <div><span>資料來源</span><strong>TWSE</strong><small>盤後公開資料</small></div>
+    <div><span>模式</span><strong class="amber">研究</strong><small>不連接券商</small></div>
+  </section>
+
+  <section class="section-head"><div><span>01 / TODAY'S SHORTLIST</span><h2>今日優先研究</h2></div><p id="summary">正在讀取證交所最新盤後資料…</p></section>
+  <section id="leaders" class="leaders" aria-live="polite">
+    <article class="leader skeleton"></article><article class="leader skeleton"></article><article class="leader skeleton"></article>
+  </section>
+
+  <section class="screener">
+    <div class="section-head compact"><div><span>02 / SCREEN THE MARKET</span><h2>完整候選排行</h2></div></div>
+    <div class="filters">
+      <label>搜尋股票<input id="search" type="search" placeholder="例如：2330 或 台積電"></label>
+      <label>最低殖利率 <output id="yieldOut">2%</output><input id="minYield" type="range" min="0" max="8" value="2" step="0.5"></label>
+      <label>最高本益比 <output id="peOut">30</output><input id="maxPe" type="range" min="8" max="60" value="30" step="1"></label>
+      <label>最低日成交額 <output id="liquidityOut">5,000萬</output><input id="minLiquidity" type="range" min="10" max="500" value="50" step="10"></label>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>排名 / 股票</th><th>研究分數</th><th>收盤價</th><th>今日漲跌</th><th>本益比</th><th>殖利率</th><th>股價淨值比</th><th>判讀</th></tr></thead>
+      <tbody id="ranking"><tr><td colspan="8" class="empty">載入資料中…</td></tr></tbody>
+    </table></div>
+  </section>
+
+  <section id="method" class="method">
+    <div><span>03 / HOW IT WORKS</span><h2>分數不是預測，<br>是篩選紀律。</h2></div>
+    <div class="method-grid">
+      <article><b>35%</b><h3>合理估值</h3><p>偏好正本益比且不過度昂貴；極低數值也不盲目加分。</p></article>
+      <article><b>25%</b><h3>股東回報</h3><p>偏好可觀殖利率，但封頂高殖利率分數，降低股利陷阱影響。</p></article>
+      <article><b>25%</b><h3>交易流動性</h3><p>以每日成交金額過濾難以合理進出的標的。</p></article>
+      <article><b>15%</b><h3>價格行為</h3><p>偏好溫和正向動能，避免追逐單日暴漲。</p></article>
+    </div>
+  </section>
+
+  <section class="risk"><strong>先保住本金，再追求報酬。</strong><p>排行僅使用最新盤後公開數據，未納入新聞、財報品質、產業循環、除權息與你的個人財務狀況。下單前需自行查核，並以單筆最大可承受損失設定部位。</p></section>
+  <footer><div class="brand">Futu<span>nism</span></div><p>資料：臺灣證券交易所 OpenAPI · 僅供研究教育用途，非投資建議</p><a href="https://openapi.twse.com.tw/" target="_blank" rel="noreferrer">官方資料來源 ↗</a></footer>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
