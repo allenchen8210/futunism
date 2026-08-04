@@ -2,6 +2,8 @@
 
 以臺灣證券交易所（TWSE）盤後 OpenAPI 資料，自動建立上市股票研究清單的無依賴網頁。
 
+公開網站：https://allenchen8210.github.io/futunism/
+
 直接以瀏覽器開啟 `index.html` 即可。網頁會讀取：
 
 - `STOCK_DAY_ALL`：最新上市股票收盤價、漲跌、成交量與成交金額
