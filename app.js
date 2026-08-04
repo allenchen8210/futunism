@@ -1,4 +1,6 @@
-const API='https://openapi.twse.com.tw/v1/exchangeReport/';
+// Data is mirrored by the GitHub Pages workflow because TWSE does not allow
+// browser cross-origin requests from a static site.
+const API='data/';
 const $=id=>document.getElementById(id);
 let allStocks=[];
 const num=v=>Number(String(v??'').replaceAll(',',''));
@@ -55,7 +57,7 @@ function render(){
 async function load(){
   $('refresh').disabled=true;$('refresh').textContent='更新中…';
   try{
-    const [priceRes,valueRes]=await Promise.all([fetch(API+'STOCK_DAY_ALL'),fetch(API+'BWIBBU_ALL')]);
+    const [priceRes,valueRes]=await Promise.all([fetch(API+'STOCK_DAY_ALL.json',{cache:'no-store'}),fetch(API+'BWIBBU_ALL.json',{cache:'no-store'})]);
     if(!priceRes.ok||!valueRes.ok)throw new Error('TWSE request failed');
     const [prices,values]=await Promise.all([priceRes.json(),valueRes.json()]);
     allStocks=joinData(prices,values); $('universe').textContent=allStocks.length;

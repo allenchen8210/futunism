@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Refresh after the Taiwan market closes, Monday through Friday.
+    - cron: "0 8 * * 1-5"
 
 permissions:
   contents: read
@@ -28,9 +31,15 @@ jobs:
       - name: Prepare static site
         shell: bash
         run: |
-          mkdir -p _site
+          mkdir -p _site/data
           cp index.html app.js styles.css _site/
           cp public/og.png _site/og.png
+          curl --fail --retry 3 --silent --show-error \
+            https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL \
+            --output _site/data/STOCK_DAY_ALL.json
+          curl --fail --retry 3 --silent --show-error \
+            https://openapi.twse.com.tw/v1/exchangeReport/BWIBBU_ALL \
+            --output _site/data/BWIBBU_ALL.json
           touch _site/.nojekyll
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
