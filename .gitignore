@@ -1,0 +1,6 @@
+# Generated deployment package
+site.tar.gz
+
+# Local operating-system files
+.DS_Store
+Thumbs.db
