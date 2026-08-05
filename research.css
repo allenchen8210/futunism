@@ -76,6 +76,14 @@
 .recommendation a { color: var(--green); font-size: .68rem; }
 .recommendation.buy-small { background: #dfece2; border-top: 4px solid #176b50; }
 .recommendation.wait-result { background: #eee4d1; border-top: 4px solid #c9891d; }
+.month-timeline { display: grid; grid-template-columns: repeat(5,1fr); gap: 1px; margin: 0 0 18px; background: var(--line); border: 1px solid var(--line); }
+.month-timeline article { min-height: 112px; padding: 15px; background: #f0efe8; }
+.month-timeline span, .month-timeline strong, .month-timeline b { display: block; }
+.month-timeline span { font: 700 .61rem monospace; color: #68736d; }
+.month-timeline strong { margin: 10px 0; font-size: .76rem; line-height: 1.55; }
+.month-timeline b { font-size: .62rem; color: #7a6352; }
+.month-timeline .selected { background: #dfece2; box-shadow: inset 0 4px #176b50; }
+.month-timeline .selected b { color: #176b50; }
 .ai-monetization { margin: 0 0 18px; border: 1px solid var(--line); padding: 24px; background: #102f29; color: #eef2ea; }
 .ai-head { display: flex; justify-content: space-between; gap: 25px; align-items: end; }
 .ai-head span, .ai-evidence article > span { font: 700 .63rem monospace; letter-spacing: .08em; color: #8fb4a7; }
@@ -148,6 +156,7 @@
   .pick-columns { grid-template-columns: 1fr; }
   .event-split { grid-template-columns: 1fr; }
   .earnings-window { grid-template-columns: 1fr; }
+  .month-timeline { grid-template-columns: 1fr 1fr; }
   .ai-head { flex-direction: column; align-items: flex-start; }
   .ai-score-grid { grid-template-columns: 1fr 1fr; }
   .ai-evidence { grid-template-columns: 1fr; }
