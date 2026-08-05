@@ -75,6 +75,11 @@
 .event-mode strong { font-size: .75rem; color: var(--green); }
 .event-mode ul { margin: 15px 0 0; padding-left: 17px; }
 .event-mode li { margin: 7px 0; font-size: .76rem; line-height: 1.6; }
+.sector-lens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin: 0 0 18px; background: var(--line); border: 1px solid var(--line); }
+.sector-lens div { background: #f0efe8; padding: 14px 16px; }
+.sector-lens b, .sector-lens span { display: block; }
+.sector-lens b { font-size: .72rem; margin-bottom: 5px; color: var(--green); }
+.sector-lens span { font-size: .65rem; color: #68736d; }
 .earnings-watch { border: 1px solid var(--line); padding: 24px; }
 .watch-head { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin-bottom: 17px; }
 .watch-head h3 { margin: 6px 0 0; font-size: 1.35rem; }
@@ -113,6 +118,7 @@
   .pick-thesis { min-height: 0; }
   .pick-columns { grid-template-columns: 1fr; }
   .event-split { grid-template-columns: 1fr; }
+  .sector-lens { grid-template-columns: 1fr 1fr; }
   .watch-head, .event-proof { flex-direction: column; align-items: flex-start; }
   .event-proof .source-row { min-width: 0; justify-content: flex-start; }
 }
