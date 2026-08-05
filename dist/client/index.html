@@ -5,26 +5,43 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta name="description" content="Futunism 台股研究雷達：用證交所公開資料篩選值得進一步研究的上市股票。">
-  <meta property="og:title" content="Futunism 台股研究雷達">
-  <meta property="og:description" content="每天，更有紀律地找股票。">
+  <meta name="description" content="Futunism 台美股一個月決策台：大盤風險、財報事件、軟體股母體與可驗證的策略門檻。">
+  <meta property="og:title" content="Futunism 台美股一個月決策台">
+  <meta property="og:description" content="先看風險與資料新鮮度，再決定買進、等待或避開。">
   <meta property="og:url" content="https://allenchen8210.github.io/futunism/">
   <meta property="og:image" content="https://allenchen8210.github.io/futunism/og.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://allenchen8210.github.io/futunism/">
-  <title>Futunism — 台股研究雷達</title>
+  <title>Futunism — 台美股一個月決策台</title>
   <link rel="stylesheet" href="styles.css?v=20260804-2">
-  <link rel="stylesheet" href="research.css?v=20260805-3">
+  <link rel="stylesheet" href="research.css?v=20260805-4">
 </head>
 <body>
 <main>
-  <nav><a class="brand" href="#">Futu<span>nism</span></a><div class="live"><i></i><span id="asOf">等待證交所資料</span></div></nav>
-  <header>
-    <div class="eyebrow">TWSE RESEARCH RADAR</div>
-    <h1>今天，哪些台股<br><em>值得深入研究？</em></h1>
-    <p class="lede">依流動性、估值、殖利率與價格動能，從台灣上市股票中建立每日研究清單。不是明牌，而是有紀律的起點。</p>
-    <div class="actions"><button id="refresh">更新今日排行</button><a href="#method">查看評分方法 ↓</a></div>
+  <nav><a class="brand" href="#today">Futu<span>nism</span></a><div class="live"><i></i><span id="asOf">等待證交所資料</span></div></nav>
+  <nav class="section-nav" aria-label="研究功能"><a href="#today">本月決策</a><a href="#market-risk">大盤風險</a><a href="#earnings-bet">財報事件</a><a href="#software-universe">軟體母體</a><a href="#performance-lab">績效驗證</a><a href="#focus">公司研究</a></nav>
+  <header id="today" class="decision-hero" data-research-date="2026-08-05">
+    <div class="decision-copy"><div class="eyebrow">FUTUNISM / ONE-MONTH DECISION DESK</div><h1>本月，<em>該怎麼做？</em></h1><p class="lede">先看大盤燈號與資料新鮮度，再決定核心配置、財報試單與現金比例。研究候選不再冒充已驗證的 alpha。</p><div class="actions"><button id="refresh">更新今日資料</button><a href="#decision-board">直接看行動 ↓</a></div></div>
+    <div class="regime-card warning" id="homeRegimeCard"><span>MARKET REGIME</span><strong id="homeRegime">黃燈</strong><p id="homeRegimeReason">獲利與長期趨勢仍正向；估值與乖離偏高，降低事件部位。</p><dl><div><dt>持有期</dt><dd>1 個月</dd></div><div><dt>可承受回撤</dt><dd>15%</dd></div><div><dt>事件曝險上限</dt><dd>10%</dd></div></dl></div>
   </header>
+
+  <section id="decision-board" class="decision-board">
+    <div class="decision-strip"><div><span>DATA HEALTH</span><strong id="decisionHealth">正在核對官方資料</strong></div><div><span>NEXT CATALYST</span><strong id="nextCatalyst" data-event-date="2026-08-26">NVDA 財報 · 21 天</strong></div><div><span>ALPHA STATUS</span><strong class="unverified">未驗證</strong></div><div><span>RESEARCH AS OF</span><strong id="decisionFreshness">2026/08/05</strong></div></div>
+    <div class="action-grid">
+      <article class="action-card core"><div><span>CORE / 分批布局</span><b>研究配置</b></div><h2>0050 + SPY</h2><p>把單一公司風險留給小部位；大盤黃燈時只分批建立核心，不一次滿倉。</p><dl><div><dt>示範部位</dt><dd>各 30%</dd></div><div><dt>進場</dt><dd>兩批</dd></div><div><dt>失效</dt><dd>跌破 MA200</dd></div></dl></article>
+      <article class="action-card event" data-event-date="2026-08-26"><div><span>EVENT / 小額試單</span><b>不等於 Alpha</b></div><h2>NVDA · 最多 3%</h2><p>只在財報前未急漲 15%、大盤未轉紅且資料仍新鮮時成立；財報後 Beat + Raise 才考慮加碼。</p><dl><div><dt>催化劑</dt><dd>8/26 財報</dd></div><div><dt>總事件上限</dt><dd>10%</dd></div><div><dt>失效</dt><dd>資料過期／大盤紅燈</dd></div></dl></article>
+      <article class="action-card avoid"><div><span>AVOID / 不追價</span><b>高估值個股</b></div><h2>先等預期差</h2><p>只有題材、沒有財測上修與現金流驗證的 AI／軟體股，不因單日大漲轉為推薦。</p><dl><div><dt>必要條件</dt><dd>成長＋FCF</dd></div><div><dt>技術面</dt><dd>相對強度</dd></div><div><dt>價格</dt><dd>不追跳空</dd></div></dl></article>
+    </div>
+    <div class="risk-budget"><div><span>示範組合預估停損風險</span><strong>約 4.65%</strong></div><div class="risk-meter" aria-label="示範風險約佔可承受回撤的31%"><i></i></div><p>低於你可承受的 15%，但財報跳空可能穿越停損；因此事件部位必須比一般持倉更小。</p></div>
+  </section>
+
+  <section id="performance-lab" class="performance-lab">
+    <div class="performance-head"><div><span>PERFORMANCE VALIDATION GATE</span><h2>沒有回測，就不標示已證明 Alpha</h2></div><div class="validation-badge" id="performanceBadge">NOT VALIDATED</div></div>
+    <div class="performance-grid">
+      <div class="strategy-register"><table><thead><tr><th>策略</th><th>基準</th><th>狀態</th></tr></thead><tbody><tr><td>台股價值＋動能</td><td>0050</td><td>等待 36 個月樣本</td></tr><tr><td>Rule of 40＋技術面</td><td>IGV／QQQ</td><td>等待樣本外測試</td></tr><tr><td>財報前試單</td><td>SPY／QQQ</td><td>等待跳空成本回測</td></tr><tr><td>Beat + Raise</td><td>SPY</td><td>等待事件回測</td></tr></tbody></table></div>
+      <div class="validation-calc"><h3>策略升級檢查</h3><div class="validation-inputs"><label>樣本月數<input id="perfMonths" type="number" min="0" value="0"></label><label>策略總報酬 %<input id="perfStrategy" type="number" step="0.1" value="0"></label><label>基準總報酬 %<input id="perfBenchmark" type="number" step="0.1" value="0"></label><label>成本與滑價 %<input id="perfCost" type="number" min="0" step="0.1" value="0.5"></label><label>最大回撤 %<input id="perfDrawdown" type="number" min="0" step="0.1" value="0"></label><label>樣本外測試<select id="perfOos"><option value="no">尚未完成</option><option value="yes">已完成</option></select></label></div><output id="performanceResult" aria-live="polite">尚未驗證 · 至少需要 36 個月與樣本外測試</output><small>通過門檻：至少 36 個月、扣除成本後勝過基準、最大回撤不超過 15%，並完成樣本外測試。輸入結果只做檢查，不會把手動數值保存或冒充正式回測。</small></div>
+    </div>
+  </section>
 
   <section class="pulse">
     <div><span>符合資料條件</span><strong id="universe">—</strong><small>檔上市股票</small></div>
@@ -106,7 +123,7 @@
     <div class="universe-stats"><div><span>北美軟體基準</span><strong>107</strong><small>IGV 官方股票列，2026/08/03</small></div><div><span>台灣官方產業母體</span><strong>85</strong><small>TWSE 24 + TPEx 61，2026/08/05</small></div><div><span>雲端策略延伸</span><strong>7</strong><small>分類外但與 AI 變現高度相關</small></div><div><span>目前評分狀態</span><strong class="amber">待標準化</strong><small>不把母體涵蓋冒充買進訊號</small></div></div>
     <div class="universe-note"><strong>母體定義</strong><p>美股採 IGV 的北美軟體與部分互動媒體持倉；台股採 TWSE／TPEx 產業代碼 30「資訊服務」與 36「數位雲端」。AMZN、GOOGL、BABA 等不是 IGV 軟體分類，另列為 AI 雲端策略延伸。</p></div>
     <div class="universe-filters"><label>搜尋公司或代號<input id="softwareSearch" type="search" placeholder="例如 PLTR、精誠、BABA"></label><label>市場<select id="softwareRegion"><option value="all">全部母體</option><option value="us">IGV 北美</option><option value="twse">台灣上市</option><option value="tpex">台灣上櫃</option><option value="cloud">雲端延伸</option></select></label><div><span>目前顯示</span><output id="softwareCoverage">載入中…</output></div></div>
-    <div class="universe-table" role="region" aria-label="軟體與雲端公司母體" tabindex="0"><table><thead><tr><th>代號</th><th>公司</th><th>市場／母體</th><th>來源</th><th>目前狀態</th></tr></thead><tbody id="softwareUniverseRows"><tr><td colspan="5" class="empty">正在載入官方母體…</td></tr></tbody></table></div>
+    <div class="universe-table" role="region" aria-label="軟體與雲端公司母體" tabindex="0"><table><thead><tr><th>代號</th><th>公司</th><th>市場／母體</th><th>來源</th><th>目前狀態</th></tr></thead><tbody id="softwareUniverseRows"><tr><td colspan="5" class="empty">正在載入官方母體…</td></tr></tbody></table></div><button id="softwareShowMore" class="show-more" type="button" hidden>顯示更多公司</button>
     <p class="research-note">產業代碼 36 也可能包含平台與電商；本清單用來避免遺漏，不代表每家公司都是純軟體或具備買進條件。官方成分異動時，實際載入列數會優先於上方截至日期的快照。</p>
     <div class="source-row"><b>母體來源</b><a href="https://www.ishares.com/us/products/239771/IGV" target="_blank" rel="noopener noreferrer">iShares IGV 官方持倉 ↗</a><a href="https://openapi.twse.com.tw/v1/opendata/t187ap03_L" target="_blank" rel="noopener noreferrer">TWSE 公司基本資料 ↗</a><a href="https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O" target="_blank" rel="noopener noreferrer">TPEx 公司基本資料 ↗</a></div>
   </section>
@@ -254,6 +271,6 @@
   <section class="risk"><strong>先保住本金，再追求報酬。</strong><p>排行僅使用最新盤後公開數據，未納入新聞、財報品質、產業循環、除權息與你的個人財務狀況。下單前需自行查核，並以單筆最大可承受損失設定部位。</p></section>
   <footer><div class="brand">Futu<span>nism</span></div><p>資料：臺灣證券交易所 OpenAPI · 僅供研究教育用途，非投資建議</p><a href="https://openapi.twse.com.tw/" target="_blank" rel="noreferrer">官方資料來源 ↗</a></footer>
 </main>
-<script src="app.js?v=20260805-3"></script>
+<script src="app.js?v=20260805-4"></script>
 </body>
 </html>
