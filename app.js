@@ -120,32 +120,6 @@ function updateMarketGate(){
 ['marketCape','marketEpsGrowth','marketPrice','marketMa200'].forEach(id=>$(id)?.addEventListener('input',updateMarketGate));
 updateMarketGate();
 
-function parseCsv(text){
-  const rows=[];let row=[],field='',quoted=false;
-  for(let i=0;i<text.length;i++){
-    const char=text[i];
-    if(quoted){
-      if(char==='"'&&text[i+1]==='"'){field+='"';i++}
-      else if(char==='"')quoted=false;
-      else field+=char;
-    }else if(char==='"')quoted=true;
-    else if(char===','){row.push(field);field=''}
-    else if(char==='\n'){row.push(field.replace(/\r$/,''));rows.push(row);row=[];field=''}
-    else field+=char;
-  }
-  if(field||row.length){row.push(field.replace(/\r$/,''));rows.push(row)}
-  return rows;
-}
-
-const CLOUD_EXTENSIONS=[
-  {ticker:'AMZN',name:'Amazon',region:'cloud',market:'雲端延伸',source:'策略延伸'},
-  {ticker:'GOOGL',name:'Alphabet',region:'cloud',market:'雲端延伸',source:'策略延伸'},
-  {ticker:'BABA',name:'Alibaba Group ADR',region:'cloud',market:'雲端延伸',source:'策略延伸'},
-  {ticker:'SAP',name:'SAP',region:'cloud',market:'雲端延伸',source:'策略延伸'},
-  {ticker:'IBM',name:'IBM',region:'cloud',market:'雲端延伸',source:'策略延伸'},
-  {ticker:'BIDU',name:'Baidu ADR',region:'cloud',market:'雲端延伸',source:'策略延伸'},
-  {ticker:'TCEHY',name:'Tencent ADR',region:'cloud',market:'雲端延伸',source:'策略延伸'}
-];
 let allSoftware=[];
 
 function renderSoftwareUniverse(){
@@ -161,22 +135,13 @@ async function loadSoftwareUniverse(){
   const body=$('softwareUniverseRows'),coverage=$('softwareCoverage');
   if(!body||!coverage)return;
   try{
-    const [igvRes,twseRes,tpexRes]=await Promise.all([
-      fetch(API+'igv-holdings.csv',{cache:'no-store'}),
-      fetch(API+'twse-companies.json',{cache:'no-store'}),
-      fetch(API+'tpex-companies.json',{cache:'no-store'})
-    ]);
-    if(!igvRes.ok||!twseRes.ok||!tpexRes.ok)throw new Error('Software universe request failed');
-    const [igvText,twse,tpex]=await Promise.all([igvRes.text(),twseRes.json(),tpexRes.json()]);
-    const rows=parseCsv(igvText),headerIndex=rows.findIndex(row=>row[0]?.trim()==='Ticker');
-    if(headerIndex<0)throw new Error('IGV header not found');
-    const header=rows[headerIndex].map(value=>value.trim()),tickerIndex=header.indexOf('Ticker'),nameIndex=header.indexOf('Name'),assetIndex=header.indexOf('Asset Class');
-    if(tickerIndex<0||nameIndex<0||assetIndex<0)throw new Error('IGV columns not found');
-    const igv=rows.slice(headerIndex+1).filter(row=>row[assetIndex]?.trim()==='Equity'&&row[tickerIndex]?.trim()&&row[tickerIndex]?.trim()!=='-').map(row=>({ticker:row[tickerIndex].trim(),name:row[nameIndex].trim(),region:'us',market:'IGV 北美',source:'iShares IGV'}));
-    const listed=twse.filter(item=>['30','36'].includes(String(item['產業別']||'').trim())).map(item=>({ticker:String(item['公司代號']||'').trim(),name:String(item['公司簡稱']||'').trim(),region:'twse',market:'台灣上市',source:'TWSE 產業 30/36'}));
-    const otc=tpex.filter(item=>['30','36'].includes(String(item.SecuritiesIndustryCode||'').trim())).map(item=>({ticker:String(item.SecuritiesCompanyCode||'').trim(),name:String(item.CompanyAbbreviation||'').trim(),region:'tpex',market:'台灣上櫃',source:'TPEx 產業 30/36'}));
+    const universeRes=await fetch(API+'software-universe.json',{cache:'no-store'});
+    if(!universeRes.ok)throw new Error('Software universe request failed');
+    const payload=await universeRes.json();
+    if(!Array.isArray(payload.items)||payload.items.length<50)throw new Error('Software universe is incomplete');
     const seen=new Set();
-    allSoftware=[...igv,...listed,...otc,...CLOUD_EXTENSIONS].filter(item=>item.ticker&&item.name&&!seen.has(`${item.region}:${item.ticker}`)&&seen.add(`${item.region}:${item.ticker}`));
+    allSoftware=payload.items.map(item=>({ticker:String(item.ticker||'').trim(),name:String(item.name||'').trim(),region:String(item.region||'').trim(),market:String(item.market||'').trim(),source:String(item.source||'').trim()})).filter(item=>item.ticker&&item.name&&!seen.has(`${item.region}:${item.ticker}`)&&seen.add(`${item.region}:${item.ticker}`));
+    coverage.title=`資料日期 ${String(payload.as_of||'未標示')}`;
     renderSoftwareUniverse();
   }catch(error){
     console.error('Unable to load software universe:',error);
