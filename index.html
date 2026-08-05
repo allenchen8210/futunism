@@ -14,7 +14,7 @@
   <link rel="canonical" href="https://allenchen8210.github.io/futunism/">
   <title>Futunism — 台股研究雷達</title>
   <link rel="stylesheet" href="styles.css?v=20260804-2">
-  <link rel="stylesheet" href="research.css?v=20260805-2">
+  <link rel="stylesheet" href="research.css?v=20260805-3">
 </head>
 <body>
 <main>
@@ -69,6 +69,46 @@
       <div class="source-row"><b>官方與原始資料</b><a href="https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap05_O" target="_blank" rel="noreferrer">TPEx 月營收 ↗</a><a href="https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap06_O_ci" target="_blank" rel="noreferrer">TPEx 綜合損益 ↗</a><a href="https://www.tpex.org.tw/openapi/v1/tpex_mainboard_peratio_analysis" target="_blank" rel="noreferrer">TPEx 估值 ↗</a><a href="https://www.dynapack.com.tw/h/data?key=iiqgi&set=9" target="_blank" rel="noreferrer">公司財務報告 ↗</a></div>
     </article>
     <p class="research-note">研究方法：以最新可得官方營收、財報與市場估值做基本面比較；未使用未證實的目標價。數字單位由原始仟元資料換算並四捨五入。以上僅供研究教育，不構成買賣建議。</p>
+  </section>
+
+  <section id="market-risk" class="market-risk">
+    <div class="section-head"><div><span>MARKET RISK GATE</span><h2>先判斷大盤，再挑個股</h2></div><p>不是用單一指標預測崩盤，而是把企業獲利、長期估值與 200 日趨勢放在同一個風險閘門。</p></div>
+    <div class="risk-banner warning">
+      <div><span>CURRENT SIGNAL · 2026/08/05</span><strong>黃燈：獲利與趨勢仍正向，但美股估值、台股乖離與獲利集中度偏高</strong><p>黃燈不等於立刻賣出；它代表財報前部位要小、避免追高，且總事件曝險要受控。</p></div>
+      <b>POSITION SIZE ↓</b>
+    </div>
+    <div class="market-cards">
+      <article>
+        <div class="market-card-head"><span>UNITED STATES</span><b>估值偏高</b></div><h3>S&amp;P 500</h3>
+        <dl><div><dt>指數 / 200 日均線</dt><dd>7,736.52 / 7,034.22</dd><small>高於 MA200 10.0%</small></div><div><dt>Shiller CAPE</dt><dd>41.4×</dd><small>2026/07 估計值</small></div><div><dt>Q2 EPS 年增</dt><dd>47.4%</dd><small>排除 AMZN、GOOGL 為 28.8%</small></div></dl>
+        <p>趨勢與總體獲利沒有轉空，但 EPS 被少數公司的非營運未實現利益放大；高 CAPE 是長期報酬風險，不是精準的一個月崩盤計時器。</p>
+      </article>
+      <article>
+        <div class="market-card-head"><span>TAIWAN</span><b>乖離偏大</b></div><h3>加權股價指數</h3>
+        <dl><div><dt>指數 / 200 日均線</dt><dd>44,611.60 / 35,277.11</dd><small>高於 MA200 26.5%</small></div><div><dt>50 日均線</dt><dd>44,736.20</dd><small>指數低約 0.3%</small></div><div><dt>市場本益比</dt><dd>23.22×</dd><small>TWSE 2025 年底，非即時值</small></div></dl>
+        <p>長期趨勢仍強，但高於 200 日均線 26.5%，同時略低於 50 日線，代表高檔震盪風險增加；台股公司獲利資料須再標準化彙總後才能作即時 EPS 廣度判斷。</p>
+      </article>
+    </div>
+    <div class="risk-controls">
+      <div class="risk-calc">
+        <div><span>RULE-BASED CHECK</span><h3>自行測試大盤狀態</h3></div>
+        <div class="risk-inputs"><label>CAPE<input id="marketCape" type="number" min="0" step="0.1" value="41.4"></label><label>總體 EPS 年增 %<input id="marketEpsGrowth" type="number" step="0.1" value="28.8"></label><label>指數<input id="marketPrice" type="number" min="0" step="0.01" value="7736.52"></label><label>200 日均線<input id="marketMa200" type="number" min="0" step="0.01" value="7034.22"></label></div>
+        <output id="marketGateResult" class="warning" aria-live="polite">黃燈 · 估值門檻觸發</output>
+        <small>紅燈：指數跌破 MA200 且 EPS 年增為負。黃燈：CAPE ≥ 35、指數高於 MA200 15% 以上，或 EPS 年增低於 5%。其餘為綠燈。這是透明的風險分層，不是回測後的買賣模型。</small>
+      </div>
+      <div class="history-audit"><span>DATA AUDIT</span><h3>可驗證的是約 155 年，不冒充 200 年</h3><p>Shiller 的美股月資料始於 1871 年；早期使用前身與拼接指數，現代 S&amp;P 500 成分股更不可能有完整 200 年公司 EPS。頁面因此只把 1871 年以來資料用於市場估值背景，不宣稱「所有公司 200 年 EPS」。</p><div class="source-row"><a href="https://www.econ.yale.edu/~shiller/data.htm" target="_blank" rel="noopener noreferrer">Yale / Shiller 原始資料 ↗</a><a href="https://katusaresearch.com/shiller-pe-ratio/" target="_blank" rel="noopener noreferrer">2026/07 CAPE 更新 ↗</a><a href="https://www.spglobal.com/spdji/en/indices/equity/sp-500/" target="_blank" rel="noopener noreferrer">S&amp;P 指數說明 ↗</a><a href="https://www.axios.com/2026/08/04/earnings-ai-accounting-amazon-alphabet" target="_blank" rel="noopener noreferrer">Q2 EPS 集中度資料 ↗</a><a href="https://www.twse.com.tw/rwd/zh/afterTrading/FMTQIK?date=20260805&amp;response=json" target="_blank" rel="noopener noreferrer">TWSE 2026/08/05 指數 ↗</a><a href="https://www.twse.com.tw/downloads/zh/about/company/factbook/2026/2.08.html" target="_blank" rel="noopener noreferrer">TWSE Fact Book ↗</a></div></div>
+    </div>
+    <div class="gate-action"><strong>目前黃燈部位規則</strong><span>財報前單一個股 2–3%；全部財報事件部位合計不超過 10%；若個股財報前已急漲 15% 以上，不追價。若轉紅燈，取消財報前押注，只保留財報後確認策略。</span></div>
+  </section>
+
+  <section id="software-universe" class="software-universe">
+    <div class="section-head"><div><span>SOFTWARE UNIVERSE</span><h2>先掃完整母體，再談推薦</h2></div><p>涵蓋不等於推薦。這一層先回答「有沒有漏看」，下一層才用 Rule of 40、自由現金流、財報預期與技術面排名。</p></div>
+    <div class="universe-stats"><div><span>北美軟體基準</span><strong>107</strong><small>IGV 官方股票列，2026/08/03</small></div><div><span>台灣官方產業母體</span><strong>85</strong><small>TWSE 24 + TPEx 61，2026/08/05</small></div><div><span>雲端策略延伸</span><strong>7</strong><small>分類外但與 AI 變現高度相關</small></div><div><span>目前評分狀態</span><strong class="amber">待標準化</strong><small>不把母體涵蓋冒充買進訊號</small></div></div>
+    <div class="universe-note"><strong>母體定義</strong><p>美股採 IGV 的北美軟體與部分互動媒體持倉；台股採 TWSE／TPEx 產業代碼 30「資訊服務」與 36「數位雲端」。AMZN、GOOGL、BABA 等不是 IGV 軟體分類，另列為 AI 雲端策略延伸。</p></div>
+    <div class="universe-filters"><label>搜尋公司或代號<input id="softwareSearch" type="search" placeholder="例如 PLTR、精誠、BABA"></label><label>市場<select id="softwareRegion"><option value="all">全部母體</option><option value="us">IGV 北美</option><option value="twse">台灣上市</option><option value="tpex">台灣上櫃</option><option value="cloud">雲端延伸</option></select></label><div><span>目前顯示</span><output id="softwareCoverage">載入中…</output></div></div>
+    <div class="universe-table" role="region" aria-label="軟體與雲端公司母體" tabindex="0"><table><thead><tr><th>代號</th><th>公司</th><th>市場／母體</th><th>來源</th><th>目前狀態</th></tr></thead><tbody id="softwareUniverseRows"><tr><td colspan="5" class="empty">正在載入官方母體…</td></tr></tbody></table></div>
+    <p class="research-note">產業代碼 36 也可能包含平台與電商；本清單用來避免遺漏，不代表每家公司都是純軟體或具備買進條件。官方成分異動時，實際載入列數會優先於上方截至日期的快照。</p>
+    <div class="source-row"><b>母體來源</b><a href="https://www.ishares.com/us/products/239771/IGV" target="_blank" rel="noopener noreferrer">iShares IGV 官方持倉 ↗</a><a href="https://openapi.twse.com.tw/v1/opendata/t187ap03_L" target="_blank" rel="noopener noreferrer">TWSE 公司基本資料 ↗</a><a href="https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O" target="_blank" rel="noopener noreferrer">TPEx 公司基本資料 ↗</a></div>
   </section>
 
   <section id="one-month" class="month-plan">
@@ -214,6 +254,6 @@
   <section class="risk"><strong>先保住本金，再追求報酬。</strong><p>排行僅使用最新盤後公開數據，未納入新聞、財報品質、產業循環、除權息與你的個人財務狀況。下單前需自行查核，並以單筆最大可承受損失設定部位。</p></section>
   <footer><div class="brand">Futu<span>nism</span></div><p>資料：臺灣證券交易所 OpenAPI · 僅供研究教育用途，非投資建議</p><a href="https://openapi.twse.com.tw/" target="_blank" rel="noreferrer">官方資料來源 ↗</a></footer>
 </main>
-<script src="app.js?v=20260804-2"></script>
+<script src="app.js?v=20260805-3"></script>
 </body>
 </html>
