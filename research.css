@@ -76,6 +76,24 @@
 .recommendation a { color: var(--green); font-size: .68rem; }
 .recommendation.buy-small { background: #dfece2; border-top: 4px solid #176b50; }
 .recommendation.wait-result { background: #eee4d1; border-top: 4px solid #c9891d; }
+.ai-monetization { margin: 0 0 18px; border: 1px solid var(--line); padding: 24px; background: #102f29; color: #eef2ea; }
+.ai-head { display: flex; justify-content: space-between; gap: 25px; align-items: end; }
+.ai-head span, .ai-evidence article > span { font: 700 .63rem monospace; letter-spacing: .08em; color: #8fb4a7; }
+.ai-head h3 { margin: 7px 0 0; font-size: 1.4rem; }
+.ai-head p { max-width: 470px; margin: 0; color: #adbbb5; font-size: .72rem; }
+.ai-score-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 1px; margin: 20px 0; background: #416057; }
+.ai-score-grid div { background: #173b33; padding: 16px; }
+.ai-score-grid b, .ai-score-grid strong, .ai-score-grid span { display: block; }
+.ai-score-grid b { color: #e2a128; font-size: 1rem; }
+.ai-score-grid strong { margin: 7px 0; font-size: .73rem; }
+.ai-score-grid span { color: #aebdb7; font-size: .63rem; line-height: 1.5; }
+.ai-evidence { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ai-evidence article { border: 1px solid #416057; padding: 18px; }
+.ai-evidence h4 { margin: 7px 0; font-size: 1.15rem; }
+.ai-evidence p { color: #b4c1bc; font-size: .7rem; line-height: 1.6; }
+.ai-evidence b { display: block; margin: 10px 0; color: #e2c578; font-size: .68rem; }
+.ai-evidence a { color: #b9dcca; font-size: .67rem; }
+.ai-rule { display: grid; grid-template-columns: 120px 1fr; gap: 15px; margin-top: 18px; padding-top: 16px; border-top: 1px dashed #527067; font-size: .7rem; line-height: 1.55; }
 .event-split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 20px 0 18px; }
 .event-mode { padding: 25px; border: 1px solid var(--line); }
 .event-mode.danger { border-top: 5px solid #9a5a4a; background: #eee2dc; }
@@ -130,6 +148,10 @@
   .pick-columns { grid-template-columns: 1fr; }
   .event-split { grid-template-columns: 1fr; }
   .earnings-window { grid-template-columns: 1fr; }
+  .ai-head { flex-direction: column; align-items: flex-start; }
+  .ai-score-grid { grid-template-columns: 1fr 1fr; }
+  .ai-evidence { grid-template-columns: 1fr; }
+  .ai-rule { grid-template-columns: 1fr; }
   .sector-lens { grid-template-columns: 1fr 1fr; }
   .watch-head, .event-proof { flex-direction: column; align-items: flex-start; }
   .event-proof .source-row { min-width: 0; justify-content: flex-start; }
