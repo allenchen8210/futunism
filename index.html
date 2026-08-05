@@ -146,6 +146,19 @@
     <div class="sector-lens" aria-label="各產業財報重點">
       <div><b>軟體</b><span>ARR · RPO · 留存率 · FCF</span></div><div><b>半導體</b><span>庫存 · ASP · 毛利率 · 資本支出</span></div><div><b>金融</b><span>淨利差 · 呆帳 · CET1 · 手續費</span></div><div><b>消費</b><span>同店銷售 · 客單價 · 庫存 · 指引</span></div><div><b>醫藥</b><span>產品銷售 · 產能 · 臨床 · 管線</span></div><div><b>能源</b><span>產量 · 實現價格 · 成本 · 回購</span></div>
     </div>
+    <div class="software-lab">
+      <div class="lab-head"><div><span>SOFTWARE PRE-EARNINGS MODEL</span><h3>Rule of 40 × 技術分析</h3></div><p>基本面決定是否值得下注；技術面決定是否已過熱。兩者都不能單獨形成買進建議。</p></div>
+      <div class="software-snapshots">
+        <article><span>NET · 官方Q1 2026</span><strong>47</strong><p>營收成長34% + FCF margin 13%</p><b class="pass">Rule of 40 通過</b><small>但毛利率由75.9%降至71.2%，技術分數仍待輸入。</small><a href="https://www.cloudflare.net/news/news-details/2026/Cloudflare-Announces-First-Quarter-2026-Financial-Results/default.aspx" target="_blank" rel="noopener noreferrer">官方財報 ↗</a></article>
+        <article><span>TEAM · 官方TTM快照</span><strong>25 + ?</strong><p>TTM營收成長25%；同期間FCF margin尚未完成核對。</p><b class="pending">資料不足，不評分</b><small>缺值不以非GAAP營業利益率代替，也不推估。</small><a href="https://investors.atlassian.com/" target="_blank" rel="noopener noreferrer">官方IR ↗</a></article>
+      </div>
+      <div class="model-calculators">
+        <div class="mini-calc" id="rule40Calc"><h4>Rule of 40 計算器</h4><label>營收年增率 %<input id="ruleGrowth" type="number" value="34" step="0.1"></label><label>自由現金流率 %<input id="ruleFcf" type="number" value="13" step="0.1"></label><output id="ruleResult" aria-live="polite">47 · 通過</output><small>主要公式：Revenue growth + FCF margin。另行檢查GAAP虧損、SBC與併購影響。</small></div>
+        <div class="mini-calc technical" id="technicalCalc"><h4>財報前技術分數</h4><div class="tech-inputs"><label>股價<input id="techPrice" type="number" min="0" step="0.01" placeholder="Price"></label><label>20日均線<input id="techMa20" type="number" min="0" step="0.01" placeholder="MA20"></label><label>50日均線<input id="techMa50" type="number" min="0" step="0.01" placeholder="MA50"></label><label>個股20日 %<input id="techReturn" type="number" step="0.1" placeholder="Stock"></label><label>QQQ／IGV 20日 %<input id="techBenchmark" type="number" step="0.1" placeholder="ETF"></label><label>量比<input id="techVolume" type="number" min="0" step="0.1" placeholder="1.2"></label><label>RSI(14)<input id="techRsi" type="number" min="0" max="100" step="1" placeholder="50"></label></div><output id="technicalResult" aria-live="polite">輸入完整行情後計算</output><small>評分：趨勢40、相對強弱20、成交量20、RSI10、距20日線10。財報前20日已漲逾15%仍需取消下注。</small></div>
+      </div>
+      <div class="model-weights"><span><b>20%</b>Rule of 40</span><span><b>20%</b>預估上修</span><span><b>15%</b>RPO／NRR</span><span><b>15%</b>AI付費</span><span><b>20%</b>技術分析</span><span><b>10%</b>事件定價</span></div>
+      <p class="research-note">完整財報前下注分數必須達70／100。現在網站尚未連接美股即時歷史行情與選擇權隱含波動，因此技術分數需輸入、事件定價仍標示缺值；不會用不完整資料自動推薦。</p>
+    </div>
     <div class="earnings-watch">
       <div class="watch-head"><div><span>CROSS-SECTOR EARNINGS WATCH</span><h3>跨產業事件觀察池</h3></div><b>不等於買進名單</b></div>
       <div class="watch-table" role="region" aria-label="未來30天跨產業財報觀察清單" tabindex="0"><table>

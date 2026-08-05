@@ -78,3 +78,23 @@ async function load(){
   render();
 }));
 $('refresh').addEventListener('click',load);load();
+
+const inputNum=id=>{const v=$(id)?.value;return v===''||v==null?NaN:Number(v)};
+function updateRule40(){
+  const total=inputNum('ruleGrowth')+inputNum('ruleFcf'),out=$('ruleResult');
+  if(!out)return;
+  out.textContent=Number.isFinite(total)?`${fmt(total,1)} · ${total>=40?'通過':'未通過'}`:'請輸入兩項數值';
+  out.className=Number.isFinite(total)&&total>=40?'pass':'fail';
+}
+function updateTechnical(){
+  const price=inputNum('techPrice'),ma20=inputNum('techMa20'),ma50=inputNum('techMa50'),stock=inputNum('techReturn'),benchmark=inputNum('techBenchmark'),volume=inputNum('techVolume'),rsi=inputNum('techRsi'),out=$('technicalResult');
+  if(!out)return;
+  if(![price,ma20,ma50,stock,benchmark,volume,rsi].every(Number.isFinite)||price<=0||ma20<=0||ma50<=0){out.textContent='輸入完整行情後計算';out.className='';return}
+  let score=0;
+  if(price>ma20)score+=20;if(ma20>ma50)score+=20;if(stock>benchmark)score+=20;if(volume>=1.2)score+=20;if(rsi>=45&&rsi<=70)score+=10;
+  const extension=price/ma20;if(extension>=.98&&extension<=1.08)score+=10;
+  out.textContent=`${score} / 100 · ${score>=70?'技術通過':score>=50?'中性':'不通過'}`;out.className=score>=70?'pass':score<50?'fail':'';
+}
+['ruleGrowth','ruleFcf'].forEach(id=>$(id)?.addEventListener('input',updateRule40));
+['techPrice','techMa20','techMa50','techReturn','techBenchmark','techVolume','techRsi'].forEach(id=>$(id)?.addEventListener('input',updateTechnical));
+updateRule40();
