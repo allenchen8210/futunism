@@ -6,6 +6,7 @@ let allStocks=[];
 const num=v=>Number(String(v??'').replaceAll(',',''));
 const fmt=(v,d=2)=>Number.isFinite(v)?v.toLocaleString('zh-TW',{minimumFractionDigits:d,maximumFractionDigits:d}):'—';
 const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 
 function rocDate(s){
   if(!/^\d{7}$/.test(s||''))return s||'最新盤後資料';
@@ -50,8 +51,8 @@ function filtered(){
 function render(){
   const list=filtered(); $('qualified').textContent=list.length;
   $('summary').textContent=list.length?`依目前條件選出 ${list.length} 檔；前三名仍需閱讀財報與重大訊息。`:'目前沒有股票通過你設定的條件。';
-  $('leaders').innerHTML=list.slice(0,3).map((s,i)=>`<article class="leader"><div class="rank">0${i+1}</div><div class="ticker">TWSE · ${s.code}</div><h3>${s.name}</h3><div class="price">收盤 NT$ ${fmt(s.close)} · <span class="${s.change>=0?'positive':'negative'}">${s.change>=0?'+':''}${fmt(s.changePct)}%</span></div><div class="score">${s.score}<small> / 100 研究分數</small></div><div class="chips"><span class="chip">P/E ${fmt(s.pe,1)}</span><span class="chip">殖利率 ${fmt(s.yield,1)}%</span><span class="chip">P/B ${fmt(s.pb,1)}</span></div><p class="why">${reason(s)}</p></article>`).join('')||'<article class="leader empty">調整篩選條件以查看候選股票。</article>';
-  $('ranking').innerHTML=list.slice(0,30).map((s,i)=>`<tr><td><div class="stock-cell"><span class="number">${String(i+1).padStart(2,'0')}</span><div><strong>${s.name}</strong><small>${s.code} · 上市</small></div></div></td><td><div class="bar"><i style="width:${s.score}%"></i></div><b>${s.score}</b></td><td>${fmt(s.close)}</td><td class="${s.change>=0?'positive':'negative'}">${s.change>=0?'+':''}${fmt(s.changePct)}%</td><td>${fmt(s.pe,1)}</td><td>${fmt(s.yield,1)}%</td><td>${fmt(s.pb,1)}</td><td class="verdict">${s.score>=78?'優先研究':s.score>=68?'加入觀察':'保留'}</td></tr>`).join('')||'<tr><td colspan="8" class="empty">沒有符合條件的股票</td></tr>';
+  $('leaders').innerHTML=list.slice(0,3).map((s,i)=>`<article class="leader"><div class="rank">0${i+1}</div><div class="ticker">TWSE · ${s.code}</div><h3>${esc(s.name)}</h3><div class="price">收盤 NT$ ${fmt(s.close)} · <span class="${s.change>=0?'positive':'negative'}">${s.change>=0?'+':''}${fmt(s.changePct)}%</span></div><div class="score">${s.score}<small> / 100 研究分數</small></div><div class="chips"><span class="chip">P/E ${fmt(s.pe,1)}</span><span class="chip">殖利率 ${fmt(s.yield,1)}%</span><span class="chip">P/B ${fmt(s.pb,1)}</span></div><p class="why">${esc(reason(s))}</p></article>`).join('')||'<article class="leader empty">調整篩選條件以查看候選股票。</article>';
+  $('ranking').innerHTML=list.slice(0,30).map((s,i)=>`<tr><td><div class="stock-cell"><span class="number">${String(i+1).padStart(2,'0')}</span><div><strong>${esc(s.name)}</strong><small>${s.code} · 上市</small></div></div></td><td><div class="bar"><i style="width:${s.score}%"></i></div><b>${s.score}</b></td><td>${fmt(s.close)}</td><td class="${s.change>=0?'positive':'negative'}">${s.change>=0?'+':''}${fmt(s.changePct)}%</td><td>${fmt(s.pe,1)}</td><td>${fmt(s.yield,1)}%</td><td>${fmt(s.pb,1)}</td><td class="verdict">${s.score>=78?'優先研究':s.score>=68?'加入觀察':'保留'}</td></tr>`).join('')||'<tr><td colspan="8" class="empty">沒有符合條件的股票</td></tr>';
 }
 
 async function load(){

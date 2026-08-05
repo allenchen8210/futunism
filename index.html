@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="description" content="Futunism 台股研究雷達：用證交所公開資料篩選值得進一步研究的上市股票。">
   <meta property="og:title" content="Futunism 台股研究雷達">
   <meta property="og:description" content="每天，更有紀律地找股票。">
@@ -106,6 +108,35 @@
       </article>
     </div>
     <div class="risk-rule"><strong>15% 是警戒上限，不是停損設定。</strong><p>若照示範配置並依 0050／SPY 各 -6%、QQQ -7% 停損，三筆同時失敗的帳面風險約為總資金 4.65%，仍保留 25% 現金。價格為市場快照，委託前必須重新核對；不融資、不攤平虧損。</p></div>
+  </section>
+
+  <section id="earnings-bet" class="earnings-plan">
+    <div class="section-head"><div><span>EVENT STRATEGY / SOFTWARE</span><h2>軟體股財報策略</h2></div><p>財報前是機率交易；財報後才是確認交易。日期以公司官方公告為準。</p></div>
+    <div class="event-split">
+      <article class="event-mode danger">
+        <span>MODE A · BEFORE EARNINGS</span><h3>財報前小額埋伏</h3><strong>單檔只用總資金 2–3%</strong>
+        <ul><li>至少符合：營收加速、ARR／RPO增長、利潤率改善、過去財測上調四項中的三項。</li><li>財報前20日已漲逾15%不追；最多同時三檔，不融資、不攤平。</li><li>跳空會穿越停損價，因此用小部位而不是寬停損控制帳戶風險。</li></ul>
+      </article>
+      <article class="event-mode confirm">
+        <span>MODE B · AFTER EARNINGS</span><h3>Beat + Raise 後確認</h3><strong>本策略優先採用</strong>
+        <ul><li>營收與EPS同時優於預期，公司上調下一季或全年展望。</li><li>ARR／RPO或雲端收入未減速，財報日成交量至少達20日均量兩倍。</li><li>收盤守住財報日開盤價，隔日未完全回補缺口；持有10–20日，停損7–8%。</li></ul>
+      </article>
+    </div>
+    <div class="earnings-watch">
+      <div class="watch-head"><div><span>SOFTWARE EARNINGS WATCH</span><h3>近期事件觀察池</h3></div><b>不等於買進名單</b></div>
+      <div class="watch-table" role="region" aria-label="軟體股財報觀察清單" tabindex="0"><table>
+        <thead><tr><th>公司</th><th>官方日期</th><th>財報要看什麼</th><th>策略</th><th>來源</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Amplitude</strong><small>AMPL</small></td><td>8/5</td><td>客戶留存、自由現金流、全年財測</td><td><span class="tag tiny">極小部位</span></td><td><a href="https://investors.amplitude.com/" target="_blank" rel="noopener noreferrer">官方 IR ↗</a></td></tr>
+          <tr><td><strong>Atlassian</strong><small>TEAM</small></td><td>8/6</td><td>雲端成長、RPO、AI變現與財測</td><td><span class="tag wait">等確認</span></td><td><a href="https://investors.atlassian.com/events-and-presentations/events/default.aspx" target="_blank" rel="noopener noreferrer">官方 IR ↗</a></td></tr>
+          <tr><td><strong>Cloudflare</strong><small>NET</small></td><td>8/6</td><td>大型客戶、剩餘履約義務、營業利益</td><td><span class="tag wait">等確認</span></td><td><a href="https://cloudflare.net/" target="_blank" rel="noopener noreferrer">官方 IR ↗</a></td></tr>
+          <tr><td><strong>Twilio</strong><small>TWLO</small></td><td>8/6</td><td>有機成長、擴張率、現金流與回購</td><td><span class="tag wait">等確認</span></td><td><a href="https://investors.twilio.com/" target="_blank" rel="noopener noreferrer">官方 IR ↗</a></td></tr>
+          <tr><td><strong>Appian</strong><small>APPN</small></td><td>8/6</td><td>訂閱收入、雲端毛利率、現金消耗</td><td><span class="tag tiny">極小部位</span></td><td><a href="https://investors.appian.com/" target="_blank" rel="noopener noreferrer">官方 IR ↗</a></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="event-proof"><div><span>產業訊號</span><strong>軟體基本面有亮點，但不是全面勝出</strong><p>SAP近期SaaS／PaaS收入年增23%；Palantir上一季營收年增85%、毛利率由80%升至87%。強勁結果也會抬高其他軟體公司的市場門檻，因此「好財報」不等於股價一定上漲。</p></div><div class="source-row"><a href="https://www.sap.com/investors/en/financial-documents-and-events/recent-results.html" target="_blank" rel="noopener noreferrer">SAP官方結果 ↗</a><a href="https://investors.palantir.com/files/2026%20Q1%20PLTR%2010-Q.pdf" target="_blank" rel="noopener noreferrer">Palantir 10-Q ↗</a></div></div>
+    <p class="research-note">風險提示：財報前交易可能因跳空造成超過預期的損失；選擇權還包含隱含波動率崩跌風險。本策略目前是研究規則，尚未完成樣本外回測，不能標示為已驗證 alpha。</p>
   </section>
 
   <section class="screener">
