@@ -7,6 +7,7 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "build": "node scripts/build-sites.mjs"
+    "check:strategies": "node scripts/validate-strategy-registry.mjs",
+    "build": "npm run check:strategies && node scripts/build-sites.mjs"
   }
 }

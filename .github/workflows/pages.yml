@@ -34,6 +34,7 @@ jobs:
           mkdir -p _site/data
           cp index.html app.js styles.css research.css _site/
           cp public/og.png _site/og.png
+          cp public/og-strategy-v2.png _site/og-strategy-v2.png
           curl --fail --retry 3 --silent --show-error \
             https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL \
             --output _site/data/STOCK_DAY_ALL.json
@@ -41,6 +42,7 @@ jobs:
             https://openapi.twse.com.tw/v1/exchangeReport/BWIBBU_ALL \
             --output _site/data/BWIBBU_ALL.json
           cp data/software-universe.json _site/data/software-universe.json
+          cp data/strategy-registry.json _site/data/strategy-registry.json
           if curl --location --fail --retry 2 --connect-timeout 10 --max-time 45 --silent --show-error \
               https://www.ishares.com/us/products/239771/ishares-expanded-tech-software-sector-etf/latest-holdings.csv \
               --output _site/data/igv-holdings.tmp \

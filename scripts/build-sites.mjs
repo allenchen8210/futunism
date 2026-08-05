@@ -16,7 +16,9 @@ for (const file of ['index.html', 'app.js', 'styles.css', 'research.css']) {
   fs.copyFileSync(path.join(root, file), path.join(client, file));
 }
 fs.copyFileSync(path.join(root, 'public', 'og.png'), path.join(client, 'og.png'));
+fs.copyFileSync(path.join(root, 'public', 'og-strategy-v2.png'), path.join(client, 'og-strategy-v2.png'));
 fs.copyFileSync(path.join(root, 'data', 'software-universe.json'), path.join(client, 'data', 'software-universe.json'));
+fs.copyFileSync(path.join(root, 'data', 'strategy-registry.json'), path.join(client, 'data', 'strategy-registry.json'));
 fs.copyFileSync(path.join(root, '.openai', 'hosting.json'), path.join(dist, '.openai', 'hosting.json'));
 
 const worker = `export default {

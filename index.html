@@ -9,7 +9,7 @@
   <meta property="og:title" content="Futunism 台美股一個月決策台">
   <meta property="og:description" content="先看風險與資料新鮮度，再決定買進、等待或避開。">
   <meta property="og:url" content="https://allenchen8210.github.io/futunism/">
-  <meta property="og:image" content="https://allenchen8210.github.io/futunism/og.png">
+  <meta property="og:image" content="https://allenchen8210.github.io/futunism/og-strategy-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://allenchen8210.github.io/futunism/">
   <title>Futunism — 台美股一個月決策台</title>
@@ -41,6 +41,67 @@
       <div class="strategy-register"><table><thead><tr><th>策略</th><th>基準</th><th>狀態</th></tr></thead><tbody><tr><td>台股價值＋動能</td><td>0050</td><td>等待 36 個月樣本</td></tr><tr><td>Rule of 40＋技術面</td><td>IGV／QQQ</td><td>等待樣本外測試</td></tr><tr><td>財報前試單</td><td>SPY／QQQ</td><td>等待跳空成本回測</td></tr><tr><td>Beat + Raise</td><td>SPY</td><td>等待事件回測</td></tr></tbody></table></div>
       <div class="validation-calc"><h3>策略升級檢查</h3><div class="validation-inputs"><label>樣本月數<input id="perfMonths" type="number" min="0" value="0"></label><label>策略總報酬 %<input id="perfStrategy" type="number" step="0.1" value="0"></label><label>基準總報酬 %<input id="perfBenchmark" type="number" step="0.1" value="0"></label><label>成本與滑價 %<input id="perfCost" type="number" min="0" step="0.1" value="0.5"></label><label>最大回撤 %<input id="perfDrawdown" type="number" min="0" step="0.1" value="0"></label><label>樣本外測試<select id="perfOos"><option value="no">尚未完成</option><option value="yes">已完成</option></select></label></div><output id="performanceResult" aria-live="polite">尚未驗證 · 至少需要 36 個月與樣本外測試</output><small>通過門檻：至少 36 個月、扣除成本後勝過基準、最大回撤不超過 15%，並完成樣本外測試。輸入結果只做檢查，不會把手動數值保存或冒充正式回測。</small></div>
     </div>
+  </section>
+
+  <section id="strategy-engine" class="strategy-engine">
+    <div class="section-head strategy-head">
+      <div><span>GITHUB-BACKED STRATEGY ENGINE</span><h2>方法可以借鏡，績效必須自己證明</h2></div>
+      <p>GitHub 提供可重現的資料與回測工具，不提供保證獲利。Futunism 將每個訊號拆成官方證據、策略共識、技術確認與風險否決。</p>
+    </div>
+
+    <div class="engine-status">
+      <div><span>VERIFIED ALPHA</span><strong id="verifiedAlphaCount">0 / 5</strong><small>尚無策略通過樣本外測試</small></div>
+      <div><span>STRONG BUY GATE</span><strong>80 分 + 3 票</strong><small>且不得存在任何否決條件</small></div>
+      <div><span>RISK LIMIT</span><strong>15% MAX DD</strong><small>黃燈市場至少保留 30% 現金</small></div>
+      <div><span>REGISTRY AS OF</span><strong id="strategyFreshness">2026/08/05</strong><small>資料過期自動降級</small></div>
+    </div>
+
+    <div class="strategy-cards" id="strategyCards" aria-live="polite">
+      <article class="strategy-card skeleton"></article>
+      <article class="strategy-card skeleton"></article>
+      <article class="strategy-card skeleton"></article>
+    </div>
+
+    <div class="evidence-workbench">
+      <div class="evidence-gate">
+        <div class="gate-title"><span>STRONG BUY EVIDENCE GATE</span><h3>勾選目前真正具備的證據</h3><p>未完成樣本外回測時，即使六項證據滿分，也只能標示「條件式買進」。</p></div>
+        <fieldset id="evidenceChecks">
+          <label><input type="checkbox" data-weight="15" checked> 官方資料新鮮且可追溯 <b>15</b></label>
+          <label><input type="checkbox" data-weight="20"> Beat + Raise／預估上修 <b>20</b></label>
+          <label><input type="checkbox" data-weight="20" checked> EPS、FCF 或 Rule of 40 品質 <b>20</b></label>
+          <label><input type="checkbox" data-weight="20" checked> MA20／50 與相對強度確認 <b>20</b></label>
+          <label><input type="checkbox" data-weight="15"> 估值仍有安全邊際 <b>15</b></label>
+          <label><input type="checkbox" data-weight="10" checked> 部位與跳空風險可承受 <b>10</b></label>
+          <label class="validation-veto"><input id="validatedBacktest" type="checkbox"> 已通過 ≥36 個月樣本外回測 <b>必要</b></label>
+        </fieldset>
+        <div class="gate-result"><output id="evidenceScore" aria-live="polite">65 / 100 · 尚非 Strong Buy</output><span id="evidenceVeto">否決：策略未完成樣本外回測</span></div>
+      </div>
+
+      <div class="backtest-contract">
+        <span>BACKTEST CONTRACT</span><h3>結果要能經得起重跑</h3>
+        <ol>
+          <li><b>Point-in-time</b><small>只使用當時已公開的財報、成分股與價格。</small></li>
+          <li><b>Next tradable open</b><small>財報公布後，模擬交易不得偷用公布前價格。</small></li>
+          <li><b>Walk-forward</b><small>訓練、驗證、樣本外期間嚴格分離。</small></li>
+          <li><b>After costs</b><small>納入手續費、交易稅、滑價與無法成交。</small></li>
+          <li><b>Risk first</b><small>最大回撤超過 15% 即使報酬高也不通過。</small></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="consensus-board">
+      <div class="consensus-head"><div><span>TOP 10 CONSENSUS</span><h3>候選不是推薦：先看哪一票沒有通過</h3></div><div class="legend"><i class="pass"></i>通過 <i class="watch"></i>觀察 <i class="fail"></i>失敗</div></div>
+      <div class="consensus-table"><table><thead><tr><th>標的</th><th>分數</th><th>基本面</th><th>財報</th><th>動能</th><th>風險</th><th>目前決策</th><th>否決／缺口</th></tr></thead><tbody id="strategyCandidateRows"><tr><td colspan="8">讀取策略登錄中…</td></tr></tbody></table></div>
+      <p class="consensus-note">Strong Buy 不是人工貼標籤：必須分數 ≥80、至少三個策略同意、回測已驗證，而且沒有追高、資料過期、財報跳空或估值否決。</p>
+    </div>
+
+    <div class="resource-register">
+      <div><span>DATA</span><strong>FinMind</strong><p>台股價格、財報、月營收與法人資料；重要數字再由 TWSE／MOPS 覆核。</p><a href="https://github.com/FinMind/FinMind" target="_blank" rel="noopener noreferrer">查看 GitHub ↗</a></div>
+      <div><span>BACKTEST</span><strong>vectorbt</strong><p>快速測試動能、停損與參數穩健性；不得用大量試參數挑出最好看的結果。</p><a href="https://github.com/polakowo/vectorbt" target="_blank" rel="noopener noreferrer">查看 GitHub ↗</a></div>
+      <div><span>EVENT</span><strong>Earnings backtest</strong><p>借鏡 PEAD 事件流程，但使用我們自己的資料、成交假設與樣本外驗證。</p><a href="https://github.com/tradermonty/earnings-trade-backtest" target="_blank" rel="noopener noreferrer">查看 GitHub ↗</a></div>
+      <div><span>RESEARCH / RISK</span><strong>Qlib + cvxportfolio</strong><p>Qlib 留給第二階段模型排名；cvxportfolio 用於部位、成本與相關性控制。</p><a href="https://github.com/microsoft/qlib" target="_blank" rel="noopener noreferrer">Qlib ↗</a><a href="https://github.com/cvxgrp/cvxportfolio" target="_blank" rel="noopener noreferrer">cvxportfolio ↗</a></div>
+    </div>
+    <p class="research-note strategy-disclaimer">程式碼來源不等於投資證據。任何第三方套件在正式納入前都必須檢查授權、依賴、惡意安裝腳本、已知漏洞與資料使用條款。</p>
   </section>
 
   <section class="pulse">

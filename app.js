@@ -207,3 +207,78 @@ async function loadSoftwareUniverse(){
 ['softwareSearch','softwareRegion'].forEach(id=>$(id)?.addEventListener('input',()=>{softwareLimit=25;renderSoftwareUniverse()}));
 $('softwareShowMore')?.addEventListener('click',()=>{softwareLimit+=25;renderSoftwareUniverse()});
 loadSoftwareUniverse();
+
+const strategyTone=value=>['pass','pending','na'].includes(value)?value:value==='fail'?'fail':'watch';
+const strategyLabel=value=>({pass:'通過',watch:'觀察',fail:'失敗',pending:'待財報',na:'不適用'})[value]||'觀察';
+
+function safeExternalUrl(value){
+  try{
+    const url=new URL(String(value));
+    return url.protocol==='https:'?url.href:'#';
+  }catch{return '#'}
+}
+
+function renderStrategyCards(strategies){
+  const container=$('strategyCards');
+  if(!container)return;
+  container.innerHTML=strategies.map((strategy,index)=>`<article class="strategy-card">
+    <div class="strategy-card-top"><span>${String(index+1).padStart(2,'0')} / ${esc(strategy.role)}</span><b class="${strategy.verified?'verified':'research'}">${strategy.verified?'VERIFIED':'RESEARCH'}</b></div>
+    <h3>${esc(strategy.name)}</h3>
+    <p class="strategy-benchmark">基準：${esc(strategy.benchmark)} · ${esc(strategy.status)}</p>
+    <ul>${strategy.rules.map(rule=>`<li>${esc(rule)}</li>`).join('')}</ul>
+    <div class="strategy-source"><span>METHOD SOURCE</span><a href="${safeExternalUrl(strategy.source_url)}" target="_blank" rel="noopener noreferrer">${esc(strategy.source_name)} ↗</a>${strategy.evidence_url?`<a href="${safeExternalUrl(strategy.evidence_url)}" target="_blank" rel="noopener noreferrer">研究依據 ↗</a>`:''}</div>
+  </article>`).join('');
+}
+
+function renderStrategyCandidates(candidates,policy){
+  const body=$('strategyCandidateRows');
+  if(!body)return;
+  body.innerHTML=candidates.map(candidate=>{
+    const strong=candidate.score>=policy.strong_buy_score&&candidate.votes>=policy.minimum_strategy_votes&&!candidate.veto&&policy.verified_alpha_count>0;
+    const decision=strong?'STRONG BUY':candidate.decision;
+    return `<tr>
+      <td><strong>${esc(candidate.symbol)}</strong><small>${esc(candidate.name)}</small></td>
+      <td><b class="candidate-score">${esc(candidate.score)}</b><small>${esc(candidate.votes)} strategy votes</small></td>
+      ${['fundamental','earnings','momentum','risk'].map(key=>`<td><span class="signal ${strategyTone(candidate[key])}">${strategyLabel(candidate[key])}</span></td>`).join('')}
+      <td><b class="candidate-decision${strong?' strong':''}">${esc(decision)}</b></td>
+      <td class="candidate-veto">${esc(candidate.veto||'無')}</td>
+    </tr>`;
+  }).join('');
+}
+
+async function loadStrategyRegistry(){
+  const cards=$('strategyCards'),body=$('strategyCandidateRows');
+  if(!cards||!body)return;
+  try{
+    const response=await fetch(API+'strategy-registry.json',{cache:'default'});
+    if(!response.ok)throw new Error('Strategy registry request failed');
+    const registry=await response.json();
+    if(!Array.isArray(registry.strategies)||!Array.isArray(registry.candidates)||!registry.policy)throw new Error('Strategy registry is incomplete');
+    renderStrategyCards(registry.strategies);
+    renderStrategyCandidates(registry.candidates,registry.policy);
+    const verified=registry.strategies.filter(strategy=>strategy.verified).length;
+    const count=$('verifiedAlphaCount'),freshness=$('strategyFreshness'),age=daysSince(registry.as_of);
+    if(count)count.textContent=`${verified} / ${registry.strategies.length}`;
+    if(freshness){freshness.textContent=String(registry.as_of||'').replaceAll('-','/');freshness.className=Number.isFinite(age)&&age>7?'stale':''}
+  }catch(error){
+    console.error('Unable to load strategy registry:',error);
+    cards.innerHTML='<article class="strategy-card error">策略登錄讀取失敗；所有訊號暫停升級。</article>';
+    body.innerHTML='<tr><td colspan="8">策略資料不可用，因此不顯示買進評級。</td></tr>';
+  }
+}
+
+function updateEvidenceGate(){
+  const checks=[...document.querySelectorAll('#evidenceChecks input[data-weight]')],validated=$('validatedBacktest')?.checked===true,out=$('evidenceScore'),veto=$('evidenceVeto');
+  if(!out||!veto)return;
+  const score=checks.reduce((total,input)=>total+(input.checked?Number(input.dataset.weight)||0:0),0);
+  const missing=checks.filter(input=>!input.checked).length;
+  const strong=score>=80&&validated&&missing===0;
+  out.textContent=`${score} / 100 · ${strong?'Strong Buy gate 通過':score>=80?'證據分數通過，仍有否決':'尚非 Strong Buy'}`;
+  out.className=strong?'pass':score>=80?'watch':'fail';
+  veto.textContent=strong?'無否決條件；仍需核對個股資料新鮮度':!validated?'否決：策略未完成樣本外回測':`否決：仍缺 ${missing} 項證據`;
+  veto.className=strong?'pass':'';
+}
+
+document.querySelectorAll('#evidenceChecks input').forEach(input=>input.addEventListener('change',updateEvidenceGate));
+updateEvidenceGate();
+loadStrategyRegistry();

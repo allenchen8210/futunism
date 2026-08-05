@@ -1,0 +1,83 @@
+{
+  "as_of": "2026-08-05",
+  "policy": {
+    "strong_buy_score": 80,
+    "minimum_strategy_votes": 3,
+    "minimum_history_months": 36,
+    "maximum_drawdown_pct": 15,
+    "requires_out_of_sample": true,
+    "requires_positive_net_alpha": true,
+    "status": "research",
+    "verified_alpha_count": 0
+  },
+  "strategies": [
+    {
+      "id": "pead",
+      "name": "Beat + Raise / PEAD",
+      "role": "一個月主策略",
+      "benchmark": "SPY / QQQ",
+      "status": "等待事件回測",
+      "verified": false,
+      "source_name": "earnings-trade-backtest",
+      "source_url": "https://github.com/tradermonty/earnings-trade-backtest",
+      "evidence_url": "https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1475-679X.2006.00196.x",
+      "rules": ["營收與 EPS 同時優於預期", "公司上調財測", "下一個可交易開盤才進場", "站上 MA20 與 MA50", "量能高於近期平均"]
+    },
+    {
+      "id": "quality_momentum",
+      "name": "Quality + Momentum",
+      "role": "非財報期排名",
+      "benchmark": "SPY / 0050",
+      "status": "等待樣本外測試",
+      "verified": false,
+      "source_name": "vectorbt",
+      "source_url": "https://github.com/polakowo/vectorbt",
+      "rules": ["EPS 與自由現金流為正", "站上 MA50 與 MA200", "相對大盤強勢", "距 MA20 不超過 8%", "波動調整後排序"]
+    },
+    {
+      "id": "tw_revenue",
+      "name": "台股月營收加速",
+      "role": "台股基本面訊號",
+      "benchmark": "0050",
+      "status": "等待 36 個月樣本",
+      "verified": false,
+      "source_name": "FinMind",
+      "source_url": "https://github.com/FinMind/FinMind",
+      "rules": ["單月與三月累計營收成長", "毛利率未惡化", "法人籌碼沒有連續轉弱", "站穩 MA50", "關鍵數字由 TWSE / MOPS 覆核"]
+    },
+    {
+      "id": "market_regime",
+      "name": "Market Regime Gate",
+      "role": "部位與現金開關",
+      "benchmark": "SPY / 0050",
+      "status": "規則已公開，等待回測",
+      "verified": false,
+      "source_name": "Qlib research workflow",
+      "source_url": "https://github.com/microsoft/qlib",
+      "rules": ["指數相對 MA50 / MA200", "市場寬度", "企業 EPS 趨勢", "黃燈至少保留 30% 現金", "紅燈取消財報前下注"]
+    },
+    {
+      "id": "risk_budget",
+      "name": "Risk-budget Portfolio",
+      "role": "持倉權重與相關性",
+      "benchmark": "70/30 投資/現金",
+      "status": "等待成本後回測",
+      "verified": false,
+      "source_name": "cvxportfolio",
+      "source_url": "https://github.com/cvxgrp/cvxportfolio",
+      "rules": ["個股風險預算", "高度相關持股合併計算", "納入交易成本", "財報部位上限 3%", "組合歷史回撤不得超過 15%"]
+    }
+  ],
+  "candidates": [
+    {"symbol": "SPY", "name": "S&P 500 ETF", "score": 74, "votes": 3, "fundamental": "pass", "earnings": "na", "momentum": "pass", "risk": "pass", "veto": "策略尚未完成樣本外回測", "decision": "CORE / 分批"},
+    {"symbol": "0050", "name": "元大台灣50", "score": 72, "votes": 3, "fundamental": "pass", "earnings": "na", "momentum": "pass", "risk": "pass", "veto": "策略尚未完成樣本外回測", "decision": "CORE / 分批"},
+    {"symbol": "2330", "name": "台積電", "score": 78, "votes": 3, "fundamental": "pass", "earnings": "pass", "momentum": "pass", "risk": "watch", "veto": "缺少估值與一個月目標報酬驗證", "decision": "BUY / 分批"},
+    {"symbol": "GOOGL", "name": "Alphabet", "score": 76, "votes": 3, "fundamental": "pass", "earnings": "pass", "momentum": "watch", "risk": "watch", "veto": "距 MA20 過遠，等待拉回", "decision": "WAIT / 拉回"},
+    {"symbol": "AVGO", "name": "Broadcom", "score": 75, "votes": 3, "fundamental": "pass", "earnings": "pass", "momentum": "watch", "risk": "watch", "veto": "預期與估值偏高", "decision": "WAIT / 拉回"},
+    {"symbol": "AMZN", "name": "Amazon", "score": 71, "votes": 2, "fundamental": "pass", "earnings": "pass", "momentum": "watch", "risk": "watch", "veto": "自由現金流受 AI 資本支出壓力", "decision": "WAIT / 拉回"},
+    {"symbol": "NVDA", "name": "NVIDIA", "score": 69, "votes": 2, "fundamental": "pass", "earnings": "pending", "momentum": "pass", "risk": "fail", "veto": "財報尚未公布；跳空風險", "decision": "EVENT / 最多 3%"},
+    {"symbol": "AMD", "name": "AMD", "score": 61, "votes": 1, "fundamental": "pass", "earnings": "watch", "momentum": "fail", "risk": "fail", "veto": "財報後價格尚未確認", "decision": "WAIT / 止穩"},
+    {"symbol": "2345", "name": "智邦", "score": 67, "votes": 2, "fundamental": "pass", "earnings": "watch", "momentum": "watch", "risk": "watch", "veto": "需補毛利率、客戶集中與最新月營收", "decision": "WATCH / MA50"},
+    {"symbol": "MU", "name": "Micron", "score": 63, "votes": 2, "fundamental": "pass", "earnings": "pass", "momentum": "fail", "risk": "watch", "veto": "跌破 MA50；記憶體循環高峰風險", "decision": "WAIT / 重回 MA50"}
+  ]
+}
